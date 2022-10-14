@@ -1,0 +1,8 @@
+pg_ctl.exe -D ..\data start
+psql -d grupostrabalho -U webdev 
+
+drop table atuacao, endereco, grupo, pessoa, telefone CASCADE;
+
+netstat -anp tcp
+
+\d
