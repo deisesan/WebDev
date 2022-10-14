@@ -14,34 +14,39 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-@Entity (name = "Pessoa")
+@Entity(name = "Pessoa")
+@NamedQueries({
+    @NamedQuery(name = "Pessoa.getPessoasNamedQuery",query = "SELECT p FROM Pessoa p")
+})
 public class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;    
-    
+    private Long id;
+
     @Column(length = 65, nullable = false)
     private String nome;
-    
+
     @Column(length = 250, nullable = false, unique = true)
     private String email;
-    
+
     @Column(columnDefinition = "DATE")
     private LocalDate nascimento;
-    
+
     @Transient
     private Byte idade;
-   
+
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
-    
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "pessoa_id")
     private List<Telefone> telefones;
@@ -49,17 +54,17 @@ public class Pessoa implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "pessoa_id")
     private List<Atuacao> atuacoes;
-    
+
     @OneToMany(mappedBy = "lider", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Grupo> liderancas;
-    
+
     //Constructor 
     public Pessoa() {
         this.telefones = new ArrayList<>();
         this.atuacoes = new ArrayList<>();
         this.liderancas = new ArrayList<>();
     }
-    
+
     //Getters e Setters
     public Long getId() {
         return id;
@@ -91,14 +96,11 @@ public class Pessoa implements Serializable {
 
     public void setNascimento(LocalDate nascimento) {
         this.nascimento = nascimento;
+        this.idade = (byte) (LocalDate.now().getYear() - nascimento.getYear());
     }
 
     public Byte getIdade() {
         return idade;
-    }
-
-    public void setIdade(Byte idade) {
-        this.idade = idade;
     }
 
     public Endereco getEndereco() {
@@ -132,19 +134,9 @@ public class Pessoa implements Serializable {
     public void setLiderancas(List<Grupo> liderancas) {
         this.liderancas = liderancas;
     }
-    
+
     @Override
     public String toString() {
-        return "Pessoa{"
-                + "id=" + id
-                + ", nome=" + nome                
-                + ", email=" + email                
-                + ", nascimento=" + nascimento                
-                + ", idade=" + idade               
-                + ", endereco=" + endereco           
-                + ", telefones=" + telefones                
-                + ", atuacoes=" + atuacoes
-                + ", liderancas=" + liderancas
-                + '}';
+        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", nascimento=" + nascimento + ", idade=" + idade + ", endereco=" + endereco + ", telefones=" + telefones + ", atuacoes=" + atuacoes + ", liderancas=" + liderancas + '}';
     }
 }

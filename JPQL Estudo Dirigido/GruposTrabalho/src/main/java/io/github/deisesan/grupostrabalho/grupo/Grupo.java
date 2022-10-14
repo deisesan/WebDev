@@ -35,6 +35,7 @@ public class Grupo implements Serializable {
     private Pessoa lider;
     
     @OneToMany(mappedBy="grupo", cascade = CascadeType.ALL, orphanRemoval=true)
+    @JsonbTransient
     private List<Atuacao> atuacoes;
     
     //Constructor 
@@ -83,15 +84,9 @@ public class Grupo implements Serializable {
     public void setAtuacoes(List<Atuacao> atuacoes) {
         this.atuacoes = atuacoes;
     }
-    
+
     @Override
     public String toString() {
-        return "Grupo{"
-                + "id=" + id
-                + ", nome=" + nome                
-                + ", ativo=" + ativo                
-                + ", lider=" + lider                
-                + ", atuacoes=" + atuacoes
-                + '}';
+        return "Grupo{" + "id=" + id + ", nome=" + nome + ", ativo=" + ativo + ", lider=" + lider + ", atuacoes=" + atuacoes + '}';
     }
 }

@@ -47,12 +47,9 @@ public class Telefone implements Serializable {
     public void setNumero(Integer numero) {
         this.numero = numero;
     }
-    
+
     @Override
     public String toString() {
-        return "Telefone{"
-                + "ddd=" + ddd
-                + ", numero=" + numero
-                + '}';
+        return "Telefone{" + "id=" + id + ", ddd=" + ddd + ", numero=" + numero + '}';
     }
 }

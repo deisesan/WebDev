@@ -82,14 +82,9 @@ public class Atuacao implements Serializable {
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
     }
-    
+
     @Override
     public String toString() {
-        return "Atuacao{"
-                + "id=" + id
-                + ", inicio=" + inicio                
-                + ", termino=" + termino                
-                + ", grupo=" + grupo
-                + '}';
+        return "Atuacao{" + "id=" + id + ", inicio=" + inicio + ", termino=" + termino + ", pessoa=" + pessoa + ", grupo=" + grupo + '}';
     }
 }
