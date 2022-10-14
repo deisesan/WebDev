@@ -22,12 +22,12 @@ import javax.persistence.Transient;
 
 @Entity(name = "Pessoa")
 @NamedQueries({
-    @NamedQuery(name = "Pessoa.getPessoasNamedQuery",query = "SELECT p FROM Pessoa p"),
-    @NamedQuery(name = "Pessoa.getNomesNamedQuery",query = "SELECT p.nome FROM Pessoa p"),
-    @NamedQuery(name = "Pessoa.getNomesEnderecosNamedQuery",query = "SELECT p.nome, p.endereco FROM Pessoa p"),
-    @NamedQuery(name = "Pessoa.getPessoasAvenidaNamedQuery",query = "SELECT p FROM Pessoa p WHERE p.endereco.tipoLogradouro = 1"),
-    @NamedQuery(name = "Pessoa.getPessoasNaoPracaNamedQuery",query = "SELECT p FROM Pessoa p WHERE NOT p.endereco.tipoLogradouro = 2"),
-    @NamedQuery(name = "Pessoa.getNomesTelefonesNamedQuery",query = "SELECT p.nome, t FROM Pessoa p JOIN p.telefones t")
+    @NamedQuery(name = "Pessoa.getPessoasNamedQuery",query = "SELECT pessoa FROM Pessoa pessoa"),
+    @NamedQuery(name = "Pessoa.getNomesNamedQuery",query = "SELECT pessoa.nome FROM Pessoa pessoa"),
+    @NamedQuery(name = "Pessoa.getNomesEnderecosNamedQuery",query = "SELECT pessoa.nome, pessoa.endereco FROM Pessoa pessoa"),
+    @NamedQuery(name = "Pessoa.getPessoasAvenidaNamedQuery",query = "SELECT pessoa FROM Pessoa pessoa WHERE pessoa.endereco.tipoLogradouro = 1"),
+    @NamedQuery(name = "Pessoa.getPessoasNaoPracaNamedQuery",query = "SELECT pessoa FROM Pessoa pessoa WHERE NOT pessoa.endereco.tipoLogradouro = 2"),
+    @NamedQuery(name = "Pessoa.getNomesTelefonesNamedQuery",query = "SELECT pessoa.nome, telefones FROM Pessoa pessoa JOIN pessoa.telefones telefones")
 })
 public class Pessoa implements Serializable {
 

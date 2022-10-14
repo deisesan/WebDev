@@ -20,13 +20,13 @@ public class PessoaBean implements PessoaBeanLocal {
 
     @Override
     public List<Pessoa> getPessoasQuery() {
-        Query result = em.createQuery("SELECT p FROM Pessoa p");
+        Query result = em.createQuery("SELECT pessoa FROM Pessoa pessoa");
         return (List<Pessoa>) result.getResultList();
     }
     
     @Override
     public List<Pessoa> getPessoasTypedQuery() {
-        TypedQuery result = em.createQuery("SELECT p FROM Pessoa p", Pessoa.class);
+        TypedQuery result = em.createQuery("SELECT pessoa FROM Pessoa pessoa", Pessoa.class);
         return result.getResultList();
     }
     
@@ -37,13 +37,13 @@ public class PessoaBean implements PessoaBeanLocal {
     
     @Override
     public List<Object[]> getNomesQuery() {
-        Query result = em.createQuery("SELECT p.nome FROM Pessoa p");
+        Query result = em.createQuery("SELECT pessoa.nome FROM Pessoa pessoa");
         return (List<Object[]>) result.getResultList();
     }
     
     @Override
     public List<Object[]> getNomesTypedQuery() {
-        TypedQuery result = em.createQuery("SELECT p.nome FROM Pessoa p", Object[].class);
+        TypedQuery result = em.createQuery("SELECT pessoa.nome FROM Pessoa pessoa", Object[].class);
         return result.getResultList();
     }
     
@@ -54,13 +54,13 @@ public class PessoaBean implements PessoaBeanLocal {
     
     @Override
     public List<Object[]> getNomesEnderecosQuery() {
-        Query result = em.createQuery("SELECT p.nome, p.endereco FROM Pessoa p");
+        Query result = em.createQuery("SELECT pessoa.nome, pessoa.endereco FROM Pessoa pessoa");
         return (List<Object[]>) result.getResultList();
     }
     
     @Override
     public List<Object[]> getNomesEnderecosTypedQuery() {
-        TypedQuery result = em.createQuery("SELECT p.nome, p.endereco FROM Pessoa p", Object[].class);
+        TypedQuery result = em.createQuery("SELECT pessoa.nome, pessoa.endereco FROM Pessoa pessoa", Object[].class);
         return result.getResultList();
     }
     
@@ -71,13 +71,13 @@ public class PessoaBean implements PessoaBeanLocal {
     
     @Override
     public List<Pessoa> getPessoasAvenidaQuery() {
-        Query result = em.createQuery("SELECT p FROM Pessoa p WHERE p.endereco.tipoLogradouro = 1");
+        Query result = em.createQuery("SELECT pessoa FROM Pessoa pessoa WHERE pessoa.endereco.tipoLogradouro = 1");
         return (List<Pessoa>) result.getResultList();
     }
     
     @Override
     public List<Pessoa> getPessoasAvenidaTypedQuery() {
-        TypedQuery result = em.createQuery("SELECT p FROM Pessoa p WHERE p.endereco.tipoLogradouro = 1", Pessoa.class);
+        TypedQuery result = em.createQuery("SELECT pessoa FROM Pessoa pessoa WHERE pessoa.endereco.tipoLogradouro = 1", Pessoa.class);
         return result.getResultList();
     }
     
@@ -88,13 +88,13 @@ public class PessoaBean implements PessoaBeanLocal {
     
     @Override
     public List<Pessoa> getPessoasNaoPracaQuery() {
-        Query result = em.createQuery("SELECT p FROM Pessoa p WHERE NOT p.endereco.tipoLogradouro = 2");
+        Query result = em.createQuery("SELECT pessoa FROM Pessoa pessoa WHERE NOT pessoa.endereco.tipoLogradouro = 2");
         return (List<Pessoa>) result.getResultList();
     }
     
     @Override
     public List<Pessoa> getPessoasNaoPracaTypedQuery() {
-        TypedQuery result = em.createQuery("SELECT p FROM Pessoa p WHERE NOT p.endereco.tipoLogradouro = 2", Pessoa.class);
+        TypedQuery result = em.createQuery("SELECT pessoa FROM Pessoa pessoa WHERE NOT pessoa.endereco.tipoLogradouro = 2", Pessoa.class);
         return result.getResultList();
     }
     
@@ -105,18 +105,30 @@ public class PessoaBean implements PessoaBeanLocal {
     
     @Override
     public List<Object[]> getNomesTelefonesQuery() {
-        Query result = em.createQuery("SELECT p.nome, t FROM Pessoa p JOIN p.telefones t");
+        Query result = em.createQuery("SELECT pessoa.nome, telefones FROM Pessoa pessoa JOIN p.telefones telefones");
         return (List<Object[]>) result.getResultList();
     }
     
     @Override
     public List<Object[]> getNomesTelefonesTypedQuery() {
-        TypedQuery result = em.createQuery("SELECT p.nome, t FROM Pessoa p JOIN p.telefones t", Object[].class);
+        TypedQuery result = em.createQuery("SELECT pessoa.nome, telefones FROM Pessoa pessoa JOIN pessoa.telefones telefones", Object[].class);
         return result.getResultList();
     }
     
     @Override
     public List<Object[]> getNomesTelefonesNamedQuery() {
         return em.createNamedQuery("Pessoa.getNomesTelefonesNamedQuery", Object[].class).getResultList();
+    }
+    
+    @Override
+    public List<Pessoa> getPessoasNaoTelefonesQuery() {
+        Query result = em.createQuery("SELECT pessoa FROM Pessoa pessoa WHERE pessoa.telefones IS EMPTY");
+        return (List<Pessoa>) result.getResultList();
+    }
+    
+    @Override
+    public List<Object[]> getPessoasCountTelefonesQuery() {
+        Query result = em.createQuery("SELECT pessoa.nome, count(telefones.id) FROM Pessoa pessoa, IN (pessoa.telefones) telefones GROUP BY pessoa.nome");
+        return (List<Object[]>) result.getResultList();
     }
 }

@@ -32,4 +32,6 @@ public interface PessoaBeanLocal {
     List<Object[]> getNomesTelefonesTypedQuery();
     List<Object[]> getNomesTelefonesNamedQuery();
    
+    List<Pessoa> getPessoasNaoTelefonesQuery();
+    List<Object[]> getPessoasCountTelefonesQuery();
 }
