@@ -1,6 +1,7 @@
-package io.github.deisesan.grupostrabalho.telefone;
+package io.github.deisesan.grupostrabalho.pessoa;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,33 +19,40 @@ public class Telefone implements Serializable {
     
     private Integer numero;
     
-    //Getters 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    //Constructor 
+    public Telefone() {
     }
-
+    
+    //Getters e Setters
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Byte getDdd() {
         return ddd;
     }
 
-    public Integer getNumero() {
-        return numero;
-    }
-    
-    //Setters
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void setDdd(Byte ddd) {
         this.ddd = ddd;
     }
 
+    public Integer getNumero() {
+        return numero;
+    }
+
     public void setNumero(Integer numero) {
         this.numero = numero;
+    }
+    
+    @Override
+    public String toString() {
+        return "Telefone{"
+                + "ddd=" + ddd
+                + ", numero=" + numero
+                + '}';
     }
 }
