@@ -105,7 +105,7 @@ public class PessoaBean implements PessoaBeanLocal {
     
     @Override
     public List<Object[]> getNomesTelefonesQuery() {
-        Query result = em.createQuery("SELECT pessoa.nome, telefones FROM Pessoa pessoa JOIN p.telefones telefones");
+        Query result = em.createQuery("SELECT pessoa.nome, telefones FROM Pessoa pessoa JOIN pessoa.telefones telefones");
         return (List<Object[]>) result.getResultList();
     }
     
